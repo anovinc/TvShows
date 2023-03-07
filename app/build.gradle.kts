@@ -1,6 +1,9 @@
+
 plugins {
   id("com.android.application")
   kotlin("android")
+  kotlin("kapt")
+  id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -39,7 +42,7 @@ android {
     compose=  true
   }
   composeOptions {
-    kotlinCompilerExtensionVersion = "1.2.0"
+    kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtension
   }
   packagingOptions {
     resources {
@@ -63,6 +66,8 @@ dependencies {
     debugImplementation(uiTooling)
     implementation(uiToolingPreview)
     implementation(activity)
+    implementation(navigation)
+    implementation(hiltNavigation)
   }
 
   with(Dependencies.Test) {
@@ -71,4 +76,8 @@ dependencies {
     androidTestImplementation(androidEspresso)
   }
 
+  with(Dependencies.Hilt) {
+    implementation(android)
+    kapt(kaptAndroidCompiler)
+  }
 }
